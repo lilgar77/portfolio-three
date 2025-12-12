@@ -8,6 +8,11 @@ function App() {
   const [phase, setPhase] = useState('intro')
   const [selectedPlanet, setSelectedPlanet] = useState(null)
   const [showContactForm, setShowContactForm] = useState(false)
+  const [contactName, setContactName] = useState('')
+  const [contactEmail, setContactEmail] = useState('')
+  const [contactMessage, setContactMessage] = useState('')
+  const [isSendingContact, setIsSendingContact] = useState(false)
+  const [contactError, setContactError] = useState('')
 
   const handleEnter = () => {
     setSelectedPlanet(null)
@@ -28,6 +33,43 @@ function App() {
 
     return () => clearTimeout(timer)
   }, [phase])
+
+  useEffect(() => {
+    if (!showContactForm) {
+      setContactError('')
+      setIsSendingContact(false)
+    }
+  }, [showContactForm])
+
+  const submitContact = async () => {
+    setContactError('')
+    setIsSendingContact(true)
+
+    try {
+      const res = await fetch('https://n8n.lilgar.fr/webhook/send-message', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: contactName,
+          email: contactEmail,
+          message: contactMessage,
+        }),
+      })
+
+      if (!res.ok) {
+        throw new Error(`Webhook error: ${res.status}`)
+      }
+
+      setShowContactForm(false)
+      setContactName('')
+      setContactEmail('')
+      setContactMessage('')
+    } catch (err) {
+      setContactError("Impossible d'envoyer le message. Réessaie dans un instant.")
+    } finally {
+      setIsSendingContact(false)
+    }
+  }
 
   return (
     <div className="relative h-screen w-screen overflow-hidden bg-black">
@@ -138,7 +180,8 @@ function App() {
               className="space-y-3"
               onSubmit={(e) => {
                 e.preventDefault()
-                setShowContactForm(false)
+                if (isSendingContact) return
+                submitContact()
               }}
             >
               <div className="flex gap-3">
@@ -149,6 +192,8 @@ function App() {
                   <input
                     type="text"
                     required
+                    value={contactName}
+                    onChange={(e) => setContactName(e.target.value)}
                     className="w-full rounded-md border border-slate-700 bg-black/40 px-2.5 py-1.5 text-xs text-gray-100 outline-none ring-0 focus:border-sky-400"
                   />
                 </div>
@@ -159,6 +204,8 @@ function App() {
                   <input
                     type="email"
                     required
+                    value={contactEmail}
+                    onChange={(e) => setContactEmail(e.target.value)}
                     className="w-full rounded-md border border-slate-700 bg-black/40 px-2.5 py-1.5 text-xs text-gray-100 outline-none ring-0 focus:border-sky-400"
                   />
                 </div>
@@ -171,23 +218,33 @@ function App() {
                 <textarea
                   rows={4}
                   required
+                  value={contactMessage}
+                  onChange={(e) => setContactMessage(e.target.value)}
                   className="w-full resize-none rounded-md border border-slate-700 bg-black/40 px-2.5 py-1.5 text-xs text-gray-100 outline-none ring-0 focus:border-sky-400"
                 />
               </div>
+
+              {contactError && (
+                <div className="rounded-xl border border-red-500/40 bg-red-500/10 px-3 py-2 text-xs text-red-200">
+                  {contactError}
+                </div>
+              )}
 
               <div className="mt-1 flex justify-end gap-2">
                 <button
                   type="button"
                   onClick={() => setShowContactForm(false)}
                   className="rounded-full border border-gray-600/60 px-3 py-1 text-[0.65rem] font-medium uppercase tracking-[0.2em] text-gray-300 hover:border-gray-400"
+                  disabled={isSendingContact}
                 >
                   Annuler
                 </button>
                 <button
                   type="submit"
-                  className="rounded-full bg-sky-500 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-sky-950 shadow-sm hover:bg-sky-400"
+                  className="rounded-full bg-sky-500 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-sky-950 shadow-sm hover:bg-sky-400 disabled:opacity-60"
+                  disabled={isSendingContact}
                 >
-                  Envoyer
+                  {isSendingContact ? 'Envoi...' : 'Envoyer'}
                 </button>
               </div>
             </form>
