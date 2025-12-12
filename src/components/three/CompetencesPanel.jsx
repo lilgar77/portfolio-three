@@ -8,7 +8,7 @@ const envs = ['VS Code', 'PHPStorm', 'Cursor']
 
 export function CompetencesLangagesCard() {
   return (
-    <div className="w-40 max-w-full rounded-2xl border border-sky-500/40 bg-slate-950/95 px-3 py-1.5 text-[0.6rem] text-sky-50 shadow-lg backdrop-blur-lg">
+    <div className="w-36 sm:w-40 max-w-full rounded-2xl border border-sky-500/40 bg-slate-950/95 px-2.5 sm:px-3 py-1.5 text-[0.55rem] sm:text-[0.6rem] text-sky-50 shadow-lg backdrop-blur-lg">
       <p className="mb-1 text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-sky-300/90">
         Langages
       </p>
@@ -16,7 +16,7 @@ export function CompetencesLangagesCard() {
         {languages.map((item) => (
           <span
             key={item}
-            className="rounded-full bg-slate-900/90 px-2 py-0.5 text-[0.5rem] font-medium text-sky-100 border border-sky-500/40"
+            className="rounded-full bg-slate-900/90 px-2 py-0.5 text-[0.45rem] sm:text-[0.5rem] font-medium text-sky-100 border border-sky-500/40"
           >
             {item}
           </span>
@@ -28,7 +28,7 @@ export function CompetencesLangagesCard() {
 
 export function CompetencesFrameworksCard() {
   return (
-    <div className="w-40 max-w-full rounded-2xl border border-sky-400/40 bg-slate-950/95 px-3 py-1.5 text-[0.6rem] text-sky-50 shadow-lg backdrop-blur-lg">
+    <div className="w-36 sm:w-40 max-w-full rounded-2xl border border-sky-400/40 bg-slate-950/95 px-2.5 sm:px-3 py-1.5 text-[0.55rem] sm:text-[0.6rem] text-sky-50 shadow-lg backdrop-blur-lg">
       <p className="mb-1 text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-sky-300/90">
         Frameworks
       </p>
@@ -36,7 +36,7 @@ export function CompetencesFrameworksCard() {
         {frameworks.map((item) => (
           <span
             key={item}
-            className="rounded-full bg-slate-900/90 px-2 py-0.5 text-[0.5rem] font-medium text-sky-100 border border-sky-400/40"
+            className="rounded-full bg-slate-900/90 px-2 py-0.5 text-[0.45rem] sm:text-[0.5rem] font-medium text-sky-100 border border-sky-400/40"
           >
             {item}
           </span>
@@ -48,7 +48,7 @@ export function CompetencesFrameworksCard() {
 
 export function CompetencesOutilsCard() {
   return (
-    <div className="w-70 max-w-full space-y-2 rounded-2xl border border-slate-500/50 bg-slate-950/95 px-3 py-1.5 text-[0.6rem] text-sky-50 shadow-lg backdrop-blur-lg">
+    <div className="w-60 sm:w-[17.5rem] max-w-full space-y-2 rounded-2xl border border-slate-500/50 bg-slate-950/95 px-2.5 sm:px-3 py-1.5 text-[0.55rem] sm:text-[0.6rem] text-sky-50 shadow-lg backdrop-blur-lg">
       <p className="text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-sky-300/90">
         Outils · Données · IA
       </p>
@@ -57,7 +57,7 @@ export function CompetencesOutilsCard() {
         {tools.map((item) => (
           <span
             key={item}
-            className="rounded-full bg-slate-900/90 px-2 py-0.5 text-[0.5rem] font-medium text-sky-100 border border-slate-500/40"
+            className="rounded-full bg-slate-900/90 px-2 py-0.5 text-[0.45rem] sm:text-[0.5rem] font-medium text-sky-100 border border-slate-500/40"
           >
             {item}
           </span>
@@ -68,7 +68,7 @@ export function CompetencesOutilsCard() {
         {databases.map((item) => (
           <span
             key={item}
-            className="rounded-full bg-slate-900/90 px-2 py-0.5 text-[0.5rem] font-medium text-sky-100 border border-emerald-400/40"
+            className="rounded-full bg-slate-900/90 px-2 py-0.5 text-[0.45rem] sm:text-[0.5rem] font-medium text-sky-100 border border-emerald-400/40"
           >
             {item}
           </span>
@@ -79,7 +79,7 @@ export function CompetencesOutilsCard() {
         {envs.map((item) => (
           <span
             key={item}
-            className="rounded-full bg-slate-900/90 px-2 py-0.5 text-[0.5rem] font-medium text-sky-100 border border-indigo-400/40"
+            className="rounded-full bg-slate-900/90 px-2 py-0.5 text-[0.45rem] sm:text-[0.5rem] font-medium text-sky-100 border border-indigo-400/40"
           >
             {item}
           </span>
